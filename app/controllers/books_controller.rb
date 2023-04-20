@@ -1,11 +1,10 @@
 class BooksController < ApplicationController
-before_action :correct_user, only: [:edit, :update]
-befor_action :authenticate_user!
-befor_action :ensure_correct_user,only: [:edit,:update, :destoroy]
+before_action :authenticate_user!
+before_action :ensure_correct_user, only: [:edit, :update, :destoroy]
 
   def show
     @book = Book.find(params[:id])
-    @book_new = Book.new
+    @book_comment = BookComment.new
   end
 
   def index
@@ -52,6 +51,6 @@ befor_action :ensure_correct_user,only: [:edit,:update, :destoroy]
   def correct_user
     @book = Book.find(params[:id])
     @user = @book.user
-    redirect_to(books_path) unless @user == current_user
+    redirect_to books_path
   end
 end
